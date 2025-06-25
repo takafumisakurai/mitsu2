@@ -15,14 +15,48 @@
         <ul>
             <li><a href="https://mitsu1.netlify.app">mitsu1.netlify.app</a></li>
             <li><a href="https://mitsu2.netlify.app">mitsu2.netlify.app</a></li>
-            <li><a href="https://mitsu3.netlify.app">mitsu3.netlify.app</a></li>
         </ul>
     </nav>
-    <p>このページはサブドメインごとに内容を変えて表示します。</p>
+    </p>
+    <section>
+        <h3>クッキー情報</h3>
+        <ul id="cookieList"></ul>
+    </section>
 </body>
 <script>
+    // サブドメイン表示
     document.getElementById('host').textContent = location.host;
+
+    // クッキーとドメイン表示用関数
+    function displayCookies(cookies) {
+        var list = document.getElementById('cookieList');
+        cookies.forEach(function (cookie) {
+            var li = document.createElement('li');
+            li.textContent = cookie.name + '=' + cookie.value + ' (domain: ' + cookie.domain + ')';
+            list.appendChild(li);
+        });
+    }
+
+    // Cookie Store API が利用可能な場合
+    if (navigator.cookieStore && navigator.cookieStore.getAll) {
+        navigator.cookieStore.getAll().then(displayCookies).catch(fallbackCookies);
+    } else {
+        fallbackCookies();
+    }
+
+    // フォールバック: document.cookie から取得
+    function fallbackCookies() {
+        var raw = document.cookie.split('; ').filter(Boolean);
+        var cookies = raw.map(function (c) {
+            var parts = c.split('=');
+            return {
+                name: parts.shift(),
+                value: parts.join('='),
+                domain: location.hostname
+            };
+        });
+        displayCookies(cookies);
+    }
 </script>
-</body>
 
 </html>
