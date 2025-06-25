@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch タグ テストページ</title>
+    <script src="https://assets.adobedtm.com/ff8e968de530/6fb5ad77a5c3/launch-bbde0c9af52f.min.js" async></script>
+</head>
+
+<body>
+    <h1>サブドメイン テストページ</h1>
+    <h2>現在のホスト名: <code id="host"></code></h2>
+    <nav>
+        <ul>
+            <li><a href="https://mitsu1.netlify.app">mitsu1.netlify.app</a></li>
+            <li><a href="https://mitsu2.netlify.app">mitsu2.netlify.app</a></li>
+            <li><a href="https://mitsu3.netlify.app">mitsu3.netlify.app</a></li>
+        </ul>
+    </nav>
+    <p>このページはサブドメインごとに内容を変えて表示します。</p>
+</body>
+<script>
+    document.getElementById('host').textContent = location.host;
+</script>
+</body>
+
+</html>
